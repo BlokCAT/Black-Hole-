@@ -23,8 +23,8 @@ cmake_install.cmake
 thirdParty/
 
 # 大文件（超过 GitHub 100MB 限制）
-assets/hdr/meadow_8k.hdr
-
+assets/hdr/
+assets/model/
 
 
 

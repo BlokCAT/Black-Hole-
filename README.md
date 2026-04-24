@@ -3,9 +3,11 @@
 基于 OpenGL 4.6 的黑洞引力透镜效应实时渲染项目。通过在 GPU 片段着色器中对每个像素进行光线追踪（Ray Tracing），模拟光线在黑洞引力场中的弯曲，实现引力透镜、吸积盘、事件视界等视觉效果。
 
 ## 效果预览
-![alt text](image.png)
+![QQ20260424-175618](pto/QQ20260424-175618.png)
 
+![QQ20260424-175450](pto/QQ20260424-175450.png)
 
+![QQ20260424-175527](pto/QQ20260424-175527.png)
 
 ## 环境要求
 
@@ -18,50 +20,7 @@
 | **CMake** | ≥ 3.12 | VS 2022 内置 CMake 支持即可 |
 | **Ninja** | — | VS 2022 安装 CMake 工具时自动附带 |
 
-## 项目结构
 
-```
-openGL_Material_blackhole/
-├── main.cpp                          # 主入口：初始化、渲染循环、黑洞参数
-├── glad.c                            # GLAD OpenGL 4.6 加载器（自动生成）
-├── CMakeLists.txt                    # 根构建文件
-├── CMakeSettings.json                # VS CMake 配置
-│
-├── application/                      # 应用层框架
-│   ├── Application.h / .cpp          # 单例窗口管理（GLFW 封装）
-│   ├── stb_image.h                   # 图像加载库（单头文件）
-│   └── camera/                       # 相机系统
-│       ├── camera.h / .cpp           # 相机基类
-│       ├── perspectiveCamera.h/.cpp  # 透视相机
-│       ├── orthographicCamera.h/.cpp # 正交相机
-│       ├── cameraControl.h / .cpp    # 相机控制器基类
-│       ├── gameCameraControl.h/.cpp  # FPS 游戏式控制器（本项目使用）
-│       └── trackBallCameraControl.h/.cpp # 轨迹球控制器
-│
-├── glFrameWork/                      # OpenGL 渲染框架
-│   ├── core.h                        # 核心头文件（GL/GLM/Assimp 包含）
-│   ├── shader.h / .cpp               # Shader 类
-│   ├── geometry.h / .cpp             # 几何体生成（Box/Sphere/FullscreenQuad）
-│   ├── CubemapTexture.h / .cpp       # 立方体贴图（HDR 等距矩形→CubeMap）
-│   ├── Mesh.h / .cpp                 # 网格类
-│   ├── Model.h / .cpp                # 模型加载类（Assimp 封装）
-│   └── texture.h / .cpp              # 纹理结构体
-│
-├── wrapper/                          # 工具封装
-│   └── checkError.h / .cpp           # GL 错误检查宏 CK()
-│
-├── assets/                           # 资源文件
-│   ├── shader/
-│   │   ├── blackhole.vert            # 黑洞顶点着色器（全屏四边形）
-│   │   └── blackhole.frag            # 黑洞片段着色器（核心：光线追踪+吸积盘）
-│   ├── hdr/                          # HDR 环境贴图（meadow_8k.hdr 需单独下载）
-│   ├── texture/                      # 纹理资源
-│   └── model/                        # 3D 模型资源
-│
-└── thirdParty/                       # 第三方依赖（需单独下载，见下方说明）
-    ├── include/                      # 头文件（GLAD, GLFW, GLM, Assimp）
-    └── lib/                          # 静态库（glfw3.lib, assimp-vc143-mtd.lib, poly2tri.lib）
-```
 
 ## 第三方依赖
 
@@ -81,12 +40,7 @@ openGL_Material_blackhole/
 >
 > 解压后确保目录结构为 `openGL_Material_blackhole/thirdParty/include/` 和 `openGL_Material_blackhole/thirdParty/lib/`。
 
-### HDR 环境贴图
-
-`assets/hdr/meadow_8k.hdr`（103MB）因超过 GitHub 文件大小限制，未包含在仓库中。请从以下地址下载并放入 `assets/hdr/` 目录：
-
-- 下载地址: https://polyhaven.com/a/meadow (选择 8K HDR 格式)
-- 文件需命名为 `meadow_8k.hdr`
+- 
 
 ## 构建步骤
 
@@ -119,30 +73,7 @@ cmake --build out/build/x64-Debug
 - **Assimp DLL**：CMake 配置了构建后复制 `assimp-vc143-mtd.dll` 到输出目录。如果该 DLL 不存在，构建后步骤可能报错。由于当前 `main.cpp` 未实际使用 Assimp 加载模型，此问题不影响运行，但需要确认 DLL 是否就位。
 - **资源文件**：CMake 配置了自动将 `assets/` 目录复制到构建输出目录，确保着色器和 HDR 贴图可被正确加载。
 
-## 运行与交互
 
-启动后将打开一个 1200×800 的窗口。
-
-### 操作方式
-
-| 操作 | 功能 |
-|------|------|
-| **W / A / S / D** | 前后左右移动相机 |
-| **鼠标右键拖动** | 旋转视角 |
-| **ESC** | 关闭窗口 |
-
-### 黑洞参数（代码可调）
-
-在 `main.cpp` 中可修改以下参数：
-
-- `blackholePos` — 黑洞位置，默认 `(0, 0, 0)`
-- `schwarzschildRadius` — 施瓦西半径，默认 `2.0`
-- `diskInnerRadius` — 吸积盘内边缘（倍数），默认 `1.0`
-- `diskOuterRadius` — 吸积盘外边缘（倍数），默认 `3.0`
-
-## 核心渲染原理
-
-片段着色器 `blackhole.frag` 实现了以下关键算法：
 
 | 技术 | 说明 |
 |------|------|
@@ -157,11 +88,7 @@ cmake --build out/build/x64-Debug
 | **Reinhard Tone Mapping** | `color / (color + 1.0)` |
 | **Gamma 校正** | `pow(color, 1/2.2)` |
 
-## 性能说明
 
-- 每个像素最多 500 步光线追踪迭代 + RK4 积分，属于 GPU 计算密集型
-- 建议使用独立显卡运行，集成显卡可能出现低帧率
-- 如需提升性能，可在 `blackhole.frag` 中降低 `maxSteps` 或增大基础步长 `h`
 
 ## 许可证
 
