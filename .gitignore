@@ -4,6 +4,8 @@ build/
 
 # Visual Studio 缓存
 .vs/
+CMakeSettings.json
+CMakePresets.json
 
 # 编译生成文件
 *.exe
@@ -13,6 +15,7 @@ build/
 *.lib
 *.exp
 *.dll
+*.hdr
 
 # CMake 缓存
 CMakeCache.txt
