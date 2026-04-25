@@ -21,7 +21,6 @@
 | **Ninja** | — | VS 2022 安装 CMake 工具时自动附带 |
 
 
-
 ## 第三方依赖
 
 | 库 | 说明 |
@@ -38,9 +37,7 @@
 > - 链接: https://pan.baidu.com/s/14YmyhhGvMOwN_FhNLv2f5A?pwd=1111
 > - 提取码: `1111`
 >
-> 解压后确保目录结构为 `openGL_Material_blackhole/thirdParty/include/` 和 `openGL_Material_blackhole/thirdParty/lib/`。
-
-- 
+> 解压后确保目录结构为 `BlackHoleProject/thirdParty/include/` 和 `BlackHoleProject/thirdParty/lib/`。
 
 ## 构建步骤
 
@@ -74,6 +71,8 @@ cmake --build out/build/x64-Debug
 - **资源文件**：CMake 配置了自动将 `assets/` 目录复制到构建输出目录，确保着色器和 HDR 贴图可被正确加载。
 
 
+
+## 核心算法与技术
 
 | 技术 | 说明 |
 |------|------|
