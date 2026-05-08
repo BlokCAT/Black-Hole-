@@ -217,7 +217,7 @@ void sampleDiskVolume(vec3 worldPos, vec3 rayDir, out float density, out vec3 em
     if (doppler > 1.0) {
         intensity *=1;   // 蓝移：d=2 → 11倍亮
     } else {
-        intensity *= pow(max(0.001, doppler), 6.0);  // 红移：d=0.4 → 降到极暗
+        intensity *= pow(max(0.0001, doppler), 10.0);  // 红移：d=0.4 → 降到极暗
     }
 
     // 多普勒颜色偏移：柔和过渡，不会割裂
@@ -236,7 +236,7 @@ void sampleDiskVolume(vec3 worldPos, vec3 rayDir, out float density, out vec3 em
 }
 vec3 traceRay(vec3 origin, vec3 dir, out float outMinDist, out vec4 outDiskColor) {
     float h = 0.06; 
-    int maxSteps = 1200;  // GR修正后光子可能绕多圈，需要更多步数
+    int maxSteps = 700;  // GR修正后光子可能绕多圈，需要更多步数
     vec3 pos = origin;
     vec3 vel = dir;
     float minDist = 1e10;
@@ -269,11 +269,8 @@ vec3 traceRay(vec3 origin, vec3 dir, out float outMinDist, out vec4 outDiskColor
         float absY = abs(local.y);
 
         // 自适应步长
-        float stepSize = 0.05;
-        if (dist < schwarzschildRadius * 4.0) {
-            // 靠近视界：步长更小，让光子环更锐利
-            stepSize = mix(0.02, 0.03, (dist - schwarzschildRadius * 0.5) / (schwarzschildRadius * 3.5));
-        }
+        float stepSize = h;
+
         // 体积采样（用最大cutoff，sampleDiskVolume内部会根据实际diskH判断）
         if (rXZ >= innerR && rXZ <= outerR && absY < maxCutoffY) {
             float d;

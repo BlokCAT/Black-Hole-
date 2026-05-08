@@ -29,11 +29,11 @@ CubemapTexture* environmentMap = nullptr;
 // ---- 相机选择（取消注释切换）----
 // 方案1：透视相机 + TrackBall（当前使用，shader光线追踪基于透视投影）
 PerspectiveCamera* camera = nullptr;
-	//TrackBallCameraControl* cameraControl = nullptr;
-	GameCameraControl* cameraControl = nullptr;
+	TrackBallCameraControl* cameraControl = nullptr;
+	//GameCameraControl* cameraControl = nullptr;
 // ===== 窗口配置 =====
-int screenWidth = 1900;
-int screenHeight = 1100;
+int screenWidth = 2000;
+int screenHeight = 1300;
 
 
 // ===== Bloom 配置 =====
@@ -116,7 +116,7 @@ void prepareCamera() {
 		1000.0f
 	);
 
-	cameraControl = new GameCameraControl();
+	cameraControl = new TrackBallCameraControl();
 	cameraControl->setCamera(camera);
 	cameraControl->setSensitivity(0.2f);
 

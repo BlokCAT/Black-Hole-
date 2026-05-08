@@ -65,6 +65,16 @@ cmake --build out/build/x64-Debug
 
 构建完成后，可执行文件位于 `out/build/x64-Debug/openGLstudy.exe`。
 
+### 方式三：一键构建并运行（推荐日常开发）
+
+从普通 cmd 或终端中一步到位：
+
+```bash
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" amd64 && cmake -B out/build/x64-Debug -G Ninja && cmake --build out/build/x64-Debug && out\build\x64-Debug\openGLstudy.exe
+```
+
+也可以双击项目根目录的 `run.bat`，效果同上。
+
 ### 注意事项
 
 - **Assimp DLL**：CMake 配置了构建后复制 `assimp-vc143-mtd.dll` 到输出目录。如果该 DLL 不存在，构建后步骤可能报错。由于当前 `main.cpp` 未实际使用 Assimp 加载模型，此问题不影响运行，但需要确认 DLL 是否就位。

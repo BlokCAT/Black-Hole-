@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDLL")
 project(openGLstudy)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -18,7 +19,7 @@ add_subdirectory(wrapper)
 add_subdirectory(application)
 add_subdirectory(glFrameWork)
 # 1. 首先：加载exe并创建目标 openGLstudy
-add_executable(openGLstudy "main.cpp" "glad.c")
+add_executable(openGLstudy "main.cpp" "glad.c" "crt_compat.c")
 
 # 2. 其次：链接所需的静态库
 target_link_libraries(openGLstudy glfw3.lib wrapper application Fw assimp-vc143-mtd.lib poly2tri.lib)

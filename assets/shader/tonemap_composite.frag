@@ -44,9 +44,6 @@ void main() {
     // ---- 2. 曝光调整 ----
     combined *= exposure;
 
-    // ---- 3. 高光压缩 ----
-    combined = compressHighlights(combined, highlightThreshold, highlightKnee);
-
     // ---- 4. ACES 色调映射 ----
     vec3 a = combined * (2.51 * combined + 0.03);
     vec3 b = combined * (2.43 * combined + 0.59) + 0.14;
